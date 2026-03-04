@@ -1,0 +1,21 @@
+
+<div>
+  <h1 class="font-bold text-4xl">Posts#new</h1>
+  <p>Find me in app/views/posts/new.html.erb</p>
+
+  <%# This is out new post form %>
+  <%# post_path == "/posts" %>
+  <%= form_with url: posts_path, method: :post do |form| %>
+    <div>
+      <%= form.label :title %><br>
+      <%= form.text_field :title, class: "border border-gray-300 rounded px-3 py-2 w-full"%>
+    </div>
+
+    <div>
+      <%= form.label :body %><br>
+      <%= form.text_area :body, class: "border border-gray-300 rounded px-3 py-2 w-full h-40" %>
+    </div>
+
+    <%= form.submit "Create Post" , class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+  <% end %>
+</div>

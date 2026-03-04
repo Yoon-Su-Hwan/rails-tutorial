@@ -1,6 +1,9 @@
 class PagesController < ApplicationController
   def home
     # This is called an action
+    # @hello_world is an [instance variable]
+    #  that can be used in the view
+    @hello_world = "Hello instance Variable!"
   end
   # about view action
   def about
