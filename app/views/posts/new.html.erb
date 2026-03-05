@@ -5,7 +5,21 @@
 
   <%# This is out new post form %>
   <%# post_path == "/posts" %>
-  <%= form_with url: posts_path, method: :post do |form| %>
+  <%# form_with는 erb 파일에서 사용하는 헬퍼 메서드입니다 %>
+  <%= form_with model: @post do |form| %>
+  <%# Render errors if they exist %>
+  <% if @post.errors.any? %>
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+      <strong class="font-bold">Errors found:</strong>
+      <ul class="list-disc pl-5">
+        <% @post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <%# title label and field area %>
     <div>
       <%= form.label :title %><br>
       <%= form.text_field :title, class: "border border-gray-300 rounded px-3 py-2 w-full"%>

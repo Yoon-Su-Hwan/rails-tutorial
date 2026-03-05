@@ -1,4 +1,27 @@
 <div>
   <h1 class="font-bold text-4xl">Posts#index</h1>
   <p>Find me in app/views/posts/index.html.erb</p>
+
+  <%# Loop through all the @posts and show you the title and give you a
+  link to them in a table %>
+  <table class="table-auto w-full">
+    <thead>
+      <tr>
+        <th class="px-4 py-2">ID</th>
+        <th class="px-4 py-2">Title</th>
+        <th class="px-4 py-2">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @posts.each do |post| %>
+        <tr>
+          <td class="border px-4 py-2"><%= post.id %></td>
+          <td class="border px-4 py-2"><%= post.title %></td>
+          <td class="border px-4 py-2">
+            <%= link_to "Show", post_path(post), class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
