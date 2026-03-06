@@ -5,8 +5,14 @@ default: &default
   timeout: 5000
 
 development:
-  <<: *default
-  database: tutorialapp_development
+  adapter: postgresql
+  encoding: unicode
+  database: my_app_development
+  pool: 5
+  host: localhost
+  port: 5432
+  username: postgres
+  password: mysecretpassword 
 
 test:
   <<: *default
