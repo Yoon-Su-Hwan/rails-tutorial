@@ -7,7 +7,10 @@ Rails.application.routes.draw do
   # posts/hello, posts/world, posts/rails 모두 show 액션으로 보낸다
   # as: "post"는 show 액션으로 보낼때 post_path라는 헬퍼 메서드를 사용할 수 있도록 해준다
   get "posts/:id", to: "posts#show", as: "post"
+  # router는 이요청을 받고 posts_controller의 create 액션으로 보낸다
   post "posts", to: "posts#create"
+  get "posts/:id/edit", to: "posts#edit", as: "edit_post"
+
 
   # Urlは　localhost:3000/posts/indexで
   # アクセスは　postコントローラーのindexアクションにアクセスする
