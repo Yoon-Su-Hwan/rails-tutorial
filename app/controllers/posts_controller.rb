@@ -18,14 +18,14 @@ class PostsController < ApplicationController
     # create action is used to create a new post
     @post = Post.new(post_params)
     if @post.save
-      # rails가 post를 저장하는데 성공하면 show 액션으로 이동한다
-      # show로 이동되는 이유는 post가 저장된 후에
-      #  post의 id를 이용해서 show 액션에서 post를 보여주기 위해서이다
+      # if rails successfully saves the post, redirect to the show action
+      # the reason for redirecting to show is to display the post
+      # using the post's id in the show action after it is saved
       redirect_to @post
     else
-      # 만약 post가 저장되지않는다면 new 액션으로 돌아가서 에러메세지를 보여준다
-      # unprocessable_entity는 422 에러코드로,
-      # 클라이언트가 보낸 요청이 서버에서 처리할 수 없는 경우에 사용 된다
+      # if the post is not saved, return to the new action and show an error message
+      # unprocessable_entity is HTTP status code 422,
+      # used when a request sent by the client cannot be processed by the server
       render :new, status: :unprocessable_entity
     end
   end
