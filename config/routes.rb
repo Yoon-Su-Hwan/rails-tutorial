@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resource :session
+  resources :passwords, param: :token
   get "posts", to: "posts#index", as: "posts"
   get "posts/new", to: "posts#new", as: "new_post"
   # :id의 경우 어떠한 문자열이라도 올수있는것으로 판단을 하기때문에
