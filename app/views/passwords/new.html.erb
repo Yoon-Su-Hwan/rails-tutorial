@@ -1,17 +1,22 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <% if alert = flash[:alert] %>
-    <p class="py-2 px-3 bg-red-50 mb-5 text-red-500 font-medium rounded-lg inline-block" id="alert"><%= alert %></p>
-  <% end %>
-
-  <h1 class="font-bold text-4xl">Forgot your password?</h1>
+<div class="mx-auto md:w-2/3 w-full px-8 pt-8 pb-8 mb-4">
+  <h1 class="font-bold text-4xl mb-6 text-center">パスワードをお忘れですか？</h1>
+  
+  <p class="text-gray-600 mb-6 text-center text-sm">
+    ご登録済みのメールアドレスを入力してください。<br>パスワード再設定用のリンクをお送りします。
+  </p>
 
   <%= form_with url: passwords_path, class: "contents" do |form| %>
     <div class="my-5">
-      <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address], class: "block shadow-sm rounded-md border border-gray-400 focus:outline-solid focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+      <%= form.label :email_address, "メールアドレス", class: "block font-semibold mb-1" %>
+      <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "メールアドレスを入力してください", value: params[:email_address], class: "block shadow rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
     </div>
 
     <div class="inline">
-      <%= form.submit "Email reset instructions", class: "w-full sm:w-auto text-center rounded-lg px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+      <%= form.submit "再設定メールを送信", class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer w-full hover:bg-blue-700 transition duration-200" %>
+    </div>
+
+    <div class="mt-6 text-center">
+      <%= link_to "ログインはこちら", new_session_path, class: "text-blue-600 hover:underline" %>
     </div>
   <% end %>
 </div>

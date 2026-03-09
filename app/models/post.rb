@@ -12,6 +12,8 @@
 #    예를 들어, Post.create(title: "Hello World", body: "This is my first post")와 같이
 #   레코드를 생성할 수 있습니다.
 class Post < ApplicationRecord
+  belongs_to :user
+
   # Validation, Title Length, or it has no existence
   validates :title, presence: true, length: { minimum: 5 }
   validates :body, presence: true, length: { minimum: 10 }

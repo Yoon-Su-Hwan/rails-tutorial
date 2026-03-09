@@ -1,0 +1,39 @@
+<div class="mx-auto md:w-2/3 w-full px-8 pt-8 pb-8 mb-4">
+  <h1 class="font-bold text-4xl mb-6 text-center">新規登録</h1>
+
+  <%= form_with(model: @user, url: signup_path, class: "contents") do |form| %>
+    <% if @user.errors.any? %>
+      <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3 mb-6">
+        <h2><%= @user.errors.count %> 件のエラーが発生しました:</h2>
+        <ul>
+          <% @user.errors.full_messages.each do |error| %>
+            <li><%= error %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="my-5">
+      <%= form.label :email_address, "メールアドレス", class: "block font-semibold mb-1" %>
+      <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "example@email.com", class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :password, "パスワード", class: "block font-semibold mb-1" %>
+      <%= form.password_field :password, required: true, autocomplete: "new-password", placeholder: "6文字以上", class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :password_confirmation, "パスワード(確認)", class: "block font-semibold mb-1" %>
+      <%= form.password_field :password_confirmation, required: true, autocomplete: "new-password", placeholder: "同じパスワードを再入力", class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="inline">
+      <%= form.submit "登録する", class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer w-full hover:bg-blue-700 transition duration-200" %>
+    </div>
+  <% end %>
+
+  <div class="mt-6 text-center">
+    <%= link_to "ログインはこちら", new_session_path, class: "text-blue-600 hover:underline" %>
+  </div>
+</div>

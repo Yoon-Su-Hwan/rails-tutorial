@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   resource :session
+  # Signup routes
+  get "signup", to: "registrations#new", as: "signup"
+  post "signup", to: "registrations#create"
+
   resources :passwords, param: :token
   get "posts", to: "posts#index", as: "posts"
   get "posts/new", to: "posts#new", as: "new_post"
