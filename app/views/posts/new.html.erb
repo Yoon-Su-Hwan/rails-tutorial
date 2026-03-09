@@ -1,7 +1,11 @@
 
 <div>
   <h1 class="font-bold text-4xl">Posts#new</h1>
-  <p>Find me in app/views/posts/new.html.erb</p>
+  <p class="mb-4">Find me in app/views/posts/new.html.erb</p>
+
+  <div class="mb-4">
+    <%= link_to "← Back to Posts", posts_path, class: "text-blue-600 hover:underline" %>
+  </div>
 
   <%# 따로뺀 form을 사용 %>
   <%= render "form", post: @post %>
