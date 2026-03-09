@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  # before_action is a method that is called before the specified actions are executed
+  before_action :set_post, only: %i[ show edit update destroy ]
   def index
     # index action is used to show all posts
     @posts = Post.all
@@ -32,10 +34,16 @@ class PostsController < ApplicationController
 
   def edit
     # edit action is used to show a form to edit a post
+    # @post = Post.find(params[:id])
   end
 
   def update
     # update action is used to update a post
+    if @post.update(post_params)
+      redirect_to @post, notice: "更新が成功しました"
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
@@ -46,5 +54,10 @@ class PostsController < ApplicationController
     # post_params is used to permit the parameters
     # that are allowed to be passed to the create and update actions
     params.require(:post).permit(:title, :body)
+  end
+
+  def set_post
+    # set_post is used to set the post variable
+    @post = Post.find(params[:id])
   end
 end
