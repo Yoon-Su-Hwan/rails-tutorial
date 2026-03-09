@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  get "posts", to: "posts#index"
-  get "posts/new", to: "posts#new"
+  get "posts", to: "posts#index", as: "posts"
+  get "posts/new", to: "posts#new", as: "new_post"
   # :id의 경우 어떠한 문자열이라도 올수있는것으로 판단을 하기때문에
   # posts/1, posts/2, posts/3 모두 show 액션으로 보낸며
   # 의도하지않은 숫자가 아닌 문자열이 올수도 있기때문에
@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   get "posts/:id/edit", to: "posts#edit", as: "edit_post"
   # patch는 update 액션으로 보낸다
   patch "posts/:id", to: "posts#update"
+  # delete route
+  delete "posts/:id", to: "posts#destroy"
 
 
   # Urlは　localhost:3000/posts/indexで

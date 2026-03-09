@@ -48,6 +48,11 @@ class PostsController < ApplicationController
 
   def destroy
     # destroy action is used to delete a post
+    if @post.destroy
+      redirect_to posts_path, notice: "削除が成功しました", status: :see_other
+    else
+      redirect_to @post, alert: "削除に失敗しました"
+    end
   end
 
   def post_params
