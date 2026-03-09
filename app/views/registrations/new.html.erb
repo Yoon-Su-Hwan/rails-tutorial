@@ -14,6 +14,26 @@
     <% end %>
 
     <div class="my-5">
+      <%= form.label :name, "氏名", class: "block font-semibold mb-1" %>
+      <%= form.text_field :name, required: true, placeholder: "山田 太郎", class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :birthdate, "生年月日", class: "block font-semibold mb-1" %>
+      <%= form.date_field :birthdate, required: true, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :phone_number, "電話番号", class: "block font-semibold mb-1" %>
+      <%= form.telephone_field :phone_number, required: true, placeholder: "090-0000-0000", class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :address, "住所", class: "block font-semibold mb-1" %>
+      <%= form.text_field :address, required: true, placeholder: "東京都渋谷区...", class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="my-5">
       <%= form.label :email_address, "メールアドレス", class: "block font-semibold mb-1" %>
       <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "example@email.com", class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
     </div>

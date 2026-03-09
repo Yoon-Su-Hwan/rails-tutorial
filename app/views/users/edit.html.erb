@@ -1,0 +1,46 @@
+<div class="mx-auto md:w-2/3 w-full px-8 pt-8 pb-8">
+  <h1 class="font-bold text-4xl mb-6">プロフィール編集</h1>
+
+  <%= form_with(model: @user, url: profile_path, method: :patch, class: "contents") do |form| %>
+    <% if @user.errors.any? %>
+      <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3 mb-6">
+        <h2><%= @user.errors.count %> 개의 오류로 인해 수정할 수 없습니다:</h2>
+        <ul>
+          <% @user.errors.full_messages.each do |error| %>
+            <li><%= error %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="my-5 bg-gray-100 p-4 rounded-md">
+      <label class="block font-semibold mb-1 text-gray-500">メールアドレス (変更不可)</label>
+      <p class="text-gray-600"><%= @user.email_address %></p>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :name, "氏名", class: "block font-semibold mb-1" %>
+      <%= form.text_field :name, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :birthdate, "生年月日", class: "block font-semibold mb-1" %>
+      <%= form.date_field :birthdate, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :phone_number, "電話番号", class: "block font-semibold mb-1" %>
+      <%= form.telephone_field :phone_number, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :address, "住所", class: "block font-semibold mb-1" %>
+      <%= form.text_field :address, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="flex gap-4 mt-8">
+      <%= form.submit "保存する", class: "rounded-lg py-3 px-8 bg-blue-600 text-white font-medium cursor-pointer hover:bg-blue-700 transition duration-200" %>
+      <%= link_to "キャンセル", profile_path, class: "rounded-lg py-3 px-8 bg-gray-100 text-gray-700 font-medium hover:bg-gray-200" %>
+    </div>
+  <% end %>
+</div>

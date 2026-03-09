@@ -32,7 +32,8 @@
 
       <nav class="flex items-center gap-4 text-sm font-medium">
         <% if authenticated? %>
-          <span class="text-gray-500 mr-2"><%= Current.user.email_address %></span>
+          <%= link_to "マイページ", profile_path, class: "text-gray-600 hover:text-gray-900" %>
+          <span class="text-gray-500 mx-2"><%= Current.user.email_address %></span>
           <%= button_to "ログアウト", session_path, method: :delete, class: "bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition" %>
         <% else %>
           <%= link_to "ログイン", new_session_path, class: "text-gray-600 hover:text-gray-900" %>
