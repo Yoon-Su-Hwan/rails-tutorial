@@ -20,10 +20,8 @@ class PostsController < ApplicationController
     # create action is used to create a new post
     @post = Post.new(post_params)
     if @post.save
-      # rails가 post를 저장하는데 성공하면 show 액션으로 이동한다
-      # show로 이동되는 이유는 post가 저장된 후에
-      #  post의 id를 이용해서 show 액션에서 post를 보여주기 위해서이다
-      redirect_to @post
+      # rails가 post를 저장하는데 성공하면 posts_path(목록)로 이동한다
+      redirect_to posts_path, notice: "記事が正常に作成されました。"
     else
       # 만약 post가 저장되지않는다면 new 액션으로 돌아가서 에러메세지를 보여준다
       # unprocessable_entity는 422 에러코드로,
