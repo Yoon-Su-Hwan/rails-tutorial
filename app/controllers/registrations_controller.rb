@@ -10,10 +10,9 @@ class RegistrationsController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      # 회원가입 성공 시 바로 세션을 생성하여 로그인 상태로 만듭니다. (브라우저 종료 시 세션 만료)
-      start_new_session_for @user
-
-      redirect_to root_path, notice: "会員登録가 완료되었습니다. 환영합니다!"
+      # 회원가입 성공 시 활성화 이메일을 발송합니다.
+      @user.send_activation_email
+      redirect_to root_path, notice: "登録したメールアドレスを確認して、アカウントを有効化してください。"
     else
       render :new, status: :unprocessable_entity
     end

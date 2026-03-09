@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   get "signup", to: "registrations#new", as: "signup"
   post "signup", to: "registrations#create"
 
+  # Account Activations routes
+  resources :account_activations, only: [:edit]
+
   # Profile (My Page) routes
   resource :profile, controller: "users", only: [:show, :edit, :update, :destroy]
 

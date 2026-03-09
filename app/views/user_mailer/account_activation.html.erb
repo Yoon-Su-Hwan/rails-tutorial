@@ -1,0 +1,11 @@
+<h1>Tutorial Appへようこそ！</h1>
+
+<p><%= @user.name %>様、会員登録ありがとうございます。</p>
+
+<p>
+  アカウントを有効化するには、以下のリンクをクリックしてください：
+</p>
+
+<%= link_to "アカウントを有効化する", edit_account_activation_url(@user.activation_token, email: @user.email_address) %>
+
+<p>※このリンクは一度のみ有効です。</p>
