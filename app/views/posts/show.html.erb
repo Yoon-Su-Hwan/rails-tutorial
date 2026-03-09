@@ -1,14 +1,27 @@
+<div class="mx-auto md:w-2/3 w-full">
+  <div class="mb-6">
+    <%= link_to "← 記事一覧に戻る", posts_path, class: "text-blue-600 hover:underline" %>
+  </div>
 
-<div>
-  <h1 class="font-bold text-4xl">Posts#show</h1>
-  <p>Find me in app/views/posts/show.html.erb</p>
-  <p>Post Id: <%= @post.id %></p>
-  <p>Title: <%= @post.title %></p>
-  <p>Body: <%= @post.body %> </p>
+  <div class="bg-white shadow-sm border border-gray-100 rounded-xl p-8 mb-6">
+    <div class="flex justify-between items-start mb-4 border-b border-gray-100 pb-4">
+      <div>
+        <h1 class="font-bold text-4xl text-gray-900 mb-2"><%= @post.title %></h1>
+        <p class="text-sm text-gray-500">作成者: <%= @post.user.email_address %></p>
+      </div>
+      <p class="text-gray-300 font-mono">#<%= @post.id %></p>
+    </div>
 
+    <div class="text-gray-800 leading-relaxed whitespace-pre-wrap min-h-[200px]">
+      <%= @post.body %>
+    </div>
 
-  <div class="mt-4">
-    <%= link_to "Edit Post", edit_post_path(@post), class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
-    <%= link_to "Back to Posts", posts_path, class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" %>
+    <%# 投稿者本人の場合のみ編集・削除ボタンを表示 %>
+    <% if authenticated? && @post.user == Current.user %>
+      <div class="mt-8 pt-6 border-t border-gray-100 flex gap-3">
+        <%= link_to "編集する", edit_post_path(@post), class: "bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition" %>
+        <%= button_to "削除する", post_path(@post), method: :delete, form: { data: { turbo_confirm: "本当に削除してよろしいですか？" } }, class: "bg-red-50 hover:bg-red-100 text-red-600 font-bold py-2 px-6 rounded-lg transition" %>
+      </div>
+    <% end %>
   </div>
 </div>

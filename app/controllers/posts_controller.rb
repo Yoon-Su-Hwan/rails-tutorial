@@ -5,6 +5,8 @@ class PostsController < ApplicationController
 
   # before_action is a method that is called before the specified actions are executed
   before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :ensure_owner, only: %i[ edit update destroy ]
+
   def index
     # index action is used to show all posts
     @posts = Post.all
@@ -67,5 +69,12 @@ class PostsController < ApplicationController
   def set_post
     # set_post is used to set the post variable
     @post = Post.find(params[:id])
+  end
+
+  def ensure_owner
+    # 게시글 작성자와 현재 로그인한 사용자가 다르면 목록으로 리다이렉트합니다.
+    unless @post.user == Current.user
+      redirect_to posts_path, alert: "自分以外の投稿は編集・削除できません。"
+    end
   end
 end

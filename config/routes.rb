@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   post "signup", to: "registrations#create"
 
   # Profile (My Page) routes
-  resource :profile, controller: "users", only: [:show, :edit, :update]
+  resource :profile, controller: "users", only: [:show, :edit, :update, :destroy]
 
   resources :passwords, param: :token
   get "posts", to: "posts#index", as: "posts"
