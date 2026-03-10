@@ -4,6 +4,6 @@ Tutorial Appへようこそ！
 
 アカウントを有効化するには、以下のリンクをブラウザに貼り付けてください：
 
-<%= edit_account_activation_url(@user.activation_token, email: @user.email_address) %>
+<%= edit_account_activation_url(@token, email: @user.email_address) %>
 
 ※このリンクは一度のみ有効です。

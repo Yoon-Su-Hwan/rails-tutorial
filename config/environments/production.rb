@@ -61,16 +61,15 @@ Rails.application.configure do
   # FIXME: Replace with your actual Render URL (e.g., 'your-app-name.onrender.com')
   config.action_mailer.default_url_options = { host: "https://rails-tutorial-2n0z.onrender.com", protocol: "https" }
 
-  # Specify outgoing SMTP server. Remember to add gmail/* credentials via bin/rails credentials:edit.
+  # Specify outgoing SMTP server using Mailjet. Remember to add mailjet credentials via bin/rails credentials:edit.
   config.action_mailer.smtp_settings = {
-    address:              "smtp.gmail.com",
-    port:                 465,
-    domain:               "gmail.com",
-    user_name:            Rails.application.credentials.dig(:gmail, :username),
-    password:             Rails.application.credentials.dig(:gmail, :password),
+    address:              "in-v3.mailjet.com",
+    port:                 587,
+    domain:               "mailjet.com",
+    user_name:            Rails.application.credentials.dig(:mailjet, :api_key),
+    password:             Rails.application.credentials.dig(:mailjet, :secret_key),
     authentication:       "plain",
-    ssl:                  true,
-    tls:                  true
+    enable_starttls_auto: true
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to

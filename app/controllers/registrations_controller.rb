@@ -10,9 +10,11 @@ class RegistrationsController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      # 회원가입 성공 시 활성화 이메일을 발송합니다.
-      @user.send_activation_email
-      redirect_to root_path, notice: "登録したメールアドレスを確認して、アカウントを有効化してください。"
+      # [임시 조치] 메일 서비스 차단으로 인해 가입 즉시 활성화 처리합니다.
+      @user.activate
+      start_new_session_for @user
+      
+      redirect_to root_path, notice: "会員登録が完了し、ログインしました！"
     else
       render :new, status: :unprocessable_entity
     end
