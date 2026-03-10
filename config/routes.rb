@@ -8,7 +8,10 @@ Rails.application.routes.draw do
   resources :account_activations, only: [:edit]
 
   # Profile (My Page) routes
-  resource :profile, controller: "users", only: [:show, :edit, :update, :destroy]
+  resource :profile, controller: "users", only: [:show, :edit, :update, :destroy] do
+    get "password", on: :member, action: :edit_password
+    patch "password", on: :member, action: :update_password
+  end
 
   resources :passwords, param: :token
   get "posts", to: "posts#index", as: "posts"

@@ -10,9 +10,27 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to profile_path, notice: "プロフィールが更新されました。"
+      redirect_to profile_path, notice: "プロフィール가 업데이트되었습니다."
     else
       render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def edit_password
+  end
+
+  def update_password
+    # 현재 비밀번호 확인 필수
+    unless @user.authenticate(params[:user][:current_password])
+      @user.errors.add(:current_password, "が正しくありません。")
+      render :edit_password, status: :unprocessable_entity
+      return
+    end
+
+    if @user.update(password_params)
+      redirect_to profile_path, notice: "パスワードが正常に更新されました。"
+    else
+      render :edit_password, status: :unprocessable_entity
     end
   end
 
@@ -31,7 +49,12 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    # 이메일은 허용 목록에서 제외하여 수정을 방지합니다.
+    # 프로필 정보만 허용
     params.require(:user).permit(:name, :birthdate, :phone_number, :address)
+  end
+
+  def password_params
+    # 비밀번호 정보만 허용
+    params.require(:user).permit(:password, :password_confirmation)
   end
 end
