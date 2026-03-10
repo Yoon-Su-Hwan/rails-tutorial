@@ -12,7 +12,7 @@ class User < ApplicationRecord
   validates :phone_number, presence: true
   validates :address, presence: true
 
-  before_create :create_activation_digest
+  before_validation :create_activation_digest, on: :create
 
   # 토큰이 다이제스트와 일치하는지 확인합니다.
   def authenticated?(attribute, token)
@@ -28,14 +28,14 @@ class User < ApplicationRecord
 
   # 활성화 이메일을 발송합니다.
   def send_activation_email
-    UserMailer.account_activation(self).deliver_now
+    UserMailer.account_activation(self, self.activation_token).deliver_now
   end
 
   private
 
   # 활성화 토큰과 다이제스트를 생성합니다.
   def create_activation_digest
-    self.activation_token  = SecureRandom.urlsafe_base64
+    self.activation_token ||= SecureRandom.urlsafe_base64
     self.activation_digest = BCrypt::Password.create(activation_token)
   end
 end
