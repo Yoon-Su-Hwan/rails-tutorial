@@ -4,7 +4,7 @@
   <%= form_with(model: @user, url: profile_path, method: :patch, class: "contents") do |form| %>
     <% if @user.errors.any? %>
       <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3 mb-6">
-        <h2><%= @user.errors.count %> 개의 오류로 인해 수정할 수 없습니다:</h2>
+        <h2><%= @user.errors.count %> 件のエラーが発生しました:</h2>
         <ul>
           <% @user.errors.full_messages.each do |error| %>
             <li><%= error %></li>
