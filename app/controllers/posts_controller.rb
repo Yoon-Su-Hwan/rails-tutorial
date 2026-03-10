@@ -1,6 +1,12 @@
 class PostsController < ApplicationController
+  # Authentication Concern에서 제공하는 인증 기능을 사용합니다.
+  # index와 show는 로그인하지 않아도 볼 수 있게 허용합니다.
+  allow_unauthenticated_access only: %i[ index show ]
+
   # before_action is a method that is called before the specified actions are executed
   before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :ensure_owner, only: %i[ edit update destroy ]
+
   def index
     # index action is used to show all posts
     @posts = Post.all
@@ -18,7 +24,8 @@ class PostsController < ApplicationController
 
   def create
     # create action is used to create a new post
-    @post = Post.new(post_params)
+    # 현재 로그인한 사용자(Current.user)의 게시글로 생성합니다.
+    @post = Current.user.posts.new(post_params)
     if @post.save
       # rails가 post를 저장하는데 성공하면 posts_path(목록)로 이동한다
       redirect_to posts_path, notice: "記事が正常に作成されました。"
@@ -29,7 +36,7 @@ class PostsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
-
+...
   def edit
     # edit action is used to show a form to edit a post
     # @post = Post.find(params[:id])
@@ -62,5 +69,12 @@ class PostsController < ApplicationController
   def set_post
     # set_post is used to set the post variable
     @post = Post.find(params[:id])
+  end
+
+  def ensure_owner
+    # 게시글 작성자와 현재 로그인한 사용자가 다르면 목록으로 리다이렉트합니다.
+    unless @post.user == Current.user
+      redirect_to posts_path, alert: "自分以外の投稿は編集・削除できません。"
+    end
   end
 end

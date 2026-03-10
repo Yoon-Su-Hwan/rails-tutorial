@@ -1,4 +1,16 @@
 Rails.application.routes.draw do
+  resource :session
+  # Signup routes
+  get "signup", to: "registrations#new", as: "signup"
+  post "signup", to: "registrations#create"
+
+  # Account Activations routes
+  resources :account_activations, only: [:edit]
+
+  # Profile (My Page) routes
+  resource :profile, controller: "users", only: [:show, :edit, :update, :destroy]
+
+  resources :passwords, param: :token
   get "posts", to: "posts#index", as: "posts"
   get "posts/new", to: "posts#new", as: "new_post"
   # :id의 경우 어떠한 문자열이라도 올수있는것으로 판단을 하기때문에

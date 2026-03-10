@@ -1,6 +1,9 @@
 
-<div>
-  <h1 class="font-bold text-4xl">Posts#edit</h1>
-  <p>Find me in app/views/posts/edit.html.erb</p>
+<div class="mx-auto md:w-2/3 w-full">
+  <div class="mb-6">
+    <%= link_to "← 記事に戻る", post_path(@post), class: "text-blue-600 hover:underline" %>
+  </div>
+
+  <h1 class="font-bold text-4xl mb-6">記事の編集</h1>
   <%= render "form", post: @post %>
 </div>

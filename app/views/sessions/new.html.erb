@@ -1,0 +1,33 @@
+<div class="mx-auto md:w-2/3 w-full px-8 pt-8 pb-8 mb-4">
+  <h1 class="font-bold text-4xl mb-6 text-center">ログイン</h1>
+
+  <%= form_with url: session_url, class: "contents" do |form| %>
+    <div class="my-5">
+      <%= form.label :email_address, "メールアドレス", class: "block font-semibold mb-1" %>
+      <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "メールアドレスを入力してください", value: params[:email_address], class: "block shadow rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :password, "パスワード", class: "block font-semibold mb-1" %>
+      <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "パスワードを入力してください", maxlength: 72, class: "block shadow rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="my-5 flex items-center gap-2">
+      <%= check_box_tag :remember_me, "1", false, class: "h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" %>
+      <%= label_tag :remember_me, "ログイン状態を保持する", class: "text-sm text-gray-700 cursor-pointer" %>
+    </div>
+
+    <div class="inline">
+      <%= form.submit "ログインする", class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer w-full hover:bg-blue-700 transition duration-200" %>
+    </div>
+
+    <div class="mt-6 text-center flex flex-col gap-4">
+      <div>
+        <%= link_to "パスワードをお忘れですか？", new_password_path, class: "text-gray-600 hover:underline text-sm" %>
+      </div>
+      <div>
+        <%= link_to "新規登録はこちら", signup_path, class: "text-blue-600 hover:underline" %>
+      </div>
+    </div>
+  <% end %>
+</div>
