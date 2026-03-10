@@ -1,8 +1,9 @@
 #!/bin/bash -e
 
-# If running the rails server then create or migrate existing database
-if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
-  ./bin/rails db:prepare
-fi
+# 데이터베이스 생성 및 마이그레이션 실행 (Solid Cache/Queue 테이블 포함)
+# db:prepare는 이미 테이블이 있으면 아무 작업도 하지 않으므로 안전합니다.
+echo "Preparing database..."
+./bin/rails db:prepare
 
+# 원래 실행하려던 명령어(CMD)를 실행합니다.
 exec "${@}"
