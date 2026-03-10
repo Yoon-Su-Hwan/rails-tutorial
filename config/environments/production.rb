@@ -64,12 +64,13 @@ Rails.application.configure do
   # Specify outgoing SMTP server. Remember to add gmail/* credentials via bin/rails credentials:edit.
   config.action_mailer.smtp_settings = {
     address:              "smtp.gmail.com",
-    port:                 587,
+    port:                 465,
     domain:               "gmail.com",
     user_name:            Rails.application.credentials.dig(:gmail, :username),
     password:             Rails.application.credentials.dig(:gmail, :password),
     authentication:       "plain",
-    enable_starttls_auto: true
+    ssl:                  true,
+    tls:                  true
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
