@@ -11,6 +11,7 @@ class User < ApplicationRecord
   validates :birthdate, presence: true
   validates :phone_number, presence: true
   validates :address, presence: true
+  validates :password, length: { minimum: 6 }, allow_nil: true
 
   before_validation :create_activation_digest, on: :create
 
