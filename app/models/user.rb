@@ -6,6 +6,12 @@ class User < ApplicationRecord
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 
+  validates :email_address, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :name, presence: true
+  validates :birthdate, presence: true
+  validates :phone_number, presence: true
+  validates :address, presence: true
+
   before_create :create_activation_digest
 
   # 토큰이 다이제스트와 일치하는지 확인합니다.
