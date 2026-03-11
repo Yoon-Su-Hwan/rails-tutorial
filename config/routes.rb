@@ -16,6 +16,9 @@ Rails.application.routes.draw do
     get "followers", on: :member
   end
 
+  # Security Question Password Reset routes
+  resources :security_resets, only: [:new, :create, :edit, :update]
+
   resources :relationships, only: [:create, :destroy]
 
   resources :passwords, param: :token
