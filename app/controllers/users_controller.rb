@@ -28,13 +28,25 @@ class UsersController < ApplicationController
     end
 
     if @user.update(password_params)
-      redirect_to profile_path, notice: "パスワード가 정상적으로 업데이트되었습니다."
+      redirect_to profile_path, notice: "パスワードが正常に更新されました。"
     else
       render :edit_password, status: :unprocessable_entity
     end
   end
 
   def following
+    @title = "フォロー中"
+    @users = @user.following
+    render "show_follow"
+  end
+
+  def followers
+    @title = "フォロワー"
+    @users = @user.followers
+    render "show_follow"
+  end
+
+  def destroy
     @title = "フォロー中"
     @users = @user.following
     render "show_follow"
