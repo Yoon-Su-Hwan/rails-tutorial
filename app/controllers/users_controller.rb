@@ -47,18 +47,6 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @title = "フォロー中"
-    @users = @user.following
-    render "show_follow"
-  end
-
-  def followers
-    @title = "フォロワー"
-    @users = @user.followers
-    render "show_follow"
-  end
-
-  def destroy
     # 세션 종료 (쿠키 삭제 및 세션 레코드 삭제)
     terminate_session
     # 사용자 삭제 (dependent: :destroy 설정으로 인해 관련 게시글도 자동 삭제됨)
