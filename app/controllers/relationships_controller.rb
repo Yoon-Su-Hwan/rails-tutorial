@@ -8,10 +8,13 @@ class RelationshipsController < ApplicationController
   end
 
   def destroy
-    # Relationship 모델에서 삭제 대상을 찾습니다.
-    # followed_id를 통해 대상을 찾아 언팔로우합니다.
-    user = Relationship.find(params[:id]).followed
+    # Relationship ID를 통해 상대방(followed) 정보를 가져옵니다.
+    relationship = Relationship.find(params[:id])
+    user = relationship.followed
+    
+    # 현재 로그인한 사용자가 팔로우를 취소합니다.
     Current.user.unfollow(user)
-    redirect_to request.referrer || root_path, notice: "#{user.name}様のフォローを解除しました。"
+    
+    redirect_to request.referrer || root_path, notice: "#{user.name}様のフォローを解除しました。", status: :see_other
   end
 end
