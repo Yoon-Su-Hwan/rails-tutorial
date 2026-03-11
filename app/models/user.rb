@@ -1,5 +1,14 @@
 class User < ApplicationRecord
-  attr_accessor :activation_token
+  attr_accessor :activation_token, :security_answer
+
+  SECURITY_QUESTIONS = [
+    "母親の旧姓は何ですか？",
+    "ペットの名前は何ですか？",
+    "出身地はどこですか？",
+    "最初に好きになったアーティストは誰ですか？",
+    "小学校の名前は何ですか？"
+  ].freeze
+
   has_secure_password
   has_many :sessions, dependent: :destroy
   has_many :posts, dependent: :destroy
@@ -26,7 +35,12 @@ class User < ApplicationRecord
   validates :address, presence: true
   validates :password, length: { minimum: 6 }, allow_nil: true
 
+  # 보안 질문 유효성 검사 (신규 가입 시에만 적용)
+  validates :security_question_id, presence: true, inclusion: { in: 0...SECURITY_QUESTIONS.length }, on: :create
+  validates :security_answer, presence: true, on: :create
+
   before_validation :create_activation_digest, on: :create
+  before_save :encrypt_security_answer
 
   # 토큰이 다이제스트와 일치하는지 확인합니다.
   def authenticated?(attribute, token)
@@ -43,6 +57,12 @@ class User < ApplicationRecord
   # 활성화 이메일을 발송합니다.
   def send_activation_email
     UserMailer.account_activation(self, self.activation_token).deliver_now
+  end
+
+  # 보안 질문의 답이 맞는지 확인합니다.
+  def correct_security_answer?(answer)
+    return false if security_answer_digest.nil?
+    BCrypt::Password.new(security_answer_digest).is_password?(answer.to_s.strip.downcase)
   end
 
   # --- 팔로우 관련 편의 메서드 ---
@@ -68,5 +88,14 @@ class User < ApplicationRecord
   def create_activation_digest
     self.activation_token ||= SecureRandom.urlsafe_base64
     self.activation_digest = BCrypt::Password.create(activation_token)
+  end
+
+  private
+
+  # 보안 질문의 답을 암호화하여 저장합니다.
+  def encrypt_security_answer
+    if security_answer.present?
+      self.security_answer_digest = BCrypt::Password.create(security_answer.to_s.strip.downcase)
+    end
   end
 end

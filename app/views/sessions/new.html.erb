@@ -22,10 +22,9 @@
     </div>
 
     <div class="mt-6 text-center flex flex-col gap-4">
-      <%# 메일 서비스 차단으로 인해 일시적으로 주석 처리합니다. %>
-      <%# <div> %>
-        <%#= link_to "パスワードをお忘れですか？", new_password_path, class: "text-gray-600 hover:underline text-sm" %>
-      <%# </div> %>
+      <div>
+        <%= link_to "パスワードをお忘れですか？", new_security_reset_path, class: "text-gray-600 hover:underline text-sm" %>
+      </div>
       <div>
         <%= link_to "新規登録はこちら", signup_path, class: "text-blue-600 hover:underline" %>
       </div>

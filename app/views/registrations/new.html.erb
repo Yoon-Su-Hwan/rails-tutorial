@@ -46,6 +46,28 @@
     </div>
 
     <div class="my-5 border-t border-gray-100 pt-5">
+      <h3 class="text-lg font-bold mb-4">セキュリティ設定</h3>
+      <p class="text-sm text-gray-500 mb-4">パスワードを忘れた際の本人確認に使用します。</p>
+
+      <div class="my-5">
+        <%= form.label :security_question_id, class: "block font-semibold mb-1" do %>
+          秘密の質問 <span class="text-red-500">*</span>
+        <% end %>
+        <%= form.select :security_question_id, 
+                        User::SECURITY_QUESTIONS.each_with_index.map { |q, i| [q, i] }, 
+                        { include_blank: "質問を選択してください" }, 
+                        { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", required: true } %>
+      </div>
+
+      <div class="my-5">
+        <%= form.label :security_answer, class: "block font-semibold mb-1" do %>
+          質問の答え <span class="text-red-500">*</span>
+        <% end %>
+        <%= form.text_field :security_answer, required: true, placeholder: "答えを入力してください", class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+      </div>
+    </div>
+
+    <div class="my-5 border-t border-gray-100 pt-5">
       <%= form.label :email_address, class: "block font-semibold mb-1" do %>
         メールアドレス <span class="text-red-500">*</span>
       <% end %>

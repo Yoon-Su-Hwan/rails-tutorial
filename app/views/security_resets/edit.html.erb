@@ -1,0 +1,42 @@
+<div class="mx-auto md:w-2/3 w-full px-8 pt-8 pb-8 mb-4">
+  <h1 class="font-bold text-4xl mb-6 text-center">秘密の質問による認証</h1>
+
+  <%= form_with(model: @user, url: security_reset_path(@user, email: @user.email_address), method: :patch, class: "contents") do |form| %>
+    <% if @user.errors.any? %>
+      <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3 mb-6">
+        <h2><%= @user.errors.count %> 件のエラーが発生しました:</h2>
+        <ul>
+          <% @user.errors.full_messages.each do |error| %>
+            <li><%= error %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="bg-blue-50 p-6 rounded-lg mb-8 border border-blue-100">
+      <p class="text-sm text-blue-600 font-bold mb-2 uppercase tracking-wider">あなたの秘密の質問</p>
+      <p class="text-xl font-bold text-blue-900"><%= User::SECURITY_QUESTIONS[@user.security_question_id] %></p>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :security_answer, "質問の答え", class: "block font-semibold mb-1" %>
+      <%= form.text_field :security_answer, required: true, autofocus: true, placeholder: "答えを入力してください", class: "block shadow rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <hr class="my-8 border-gray-100">
+
+    <div class="my-5">
+      <%= form.label :password, "新しいパスワード", class: "block font-semibold mb-1" %>
+      <%= form.password_field :password, required: true, placeholder: "6文字以上", class: "block shadow rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :password_confirmation, "新しいパスワード（確認）", class: "block font-semibold mb-1" %>
+      <%= form.password_field :password_confirmation, required: true, placeholder: "もう一度入力してください", class: "block shadow rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="inline">
+      <%= form.submit "パスワードを更新してログインする", class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer w-full hover:bg-blue-700 transition duration-200" %>
+    </div>
+  <% end %>
+</div>
