@@ -1,0 +1,32 @@
+<div class="mx-auto md:w-2/3 w-full px-8 pt-8 pb-8">
+  <div class="mb-6">
+    <%= link_to "← マイページに戻る", profile_path, class: "text-blue-600 hover:underline" %>
+  </div>
+
+  <h1 class="font-bold text-4xl mb-8"><%= @title %></h1>
+
+  <% if @users.any? %>
+    <div class="grid gap-4">
+      <% @users.each do |user| %>
+        <div class="bg-white border border-gray-100 rounded-xl p-4 flex justify-between items-center shadow-sm">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-xl">
+              <%= user.name[0].upcase if user.name.present? %>
+            </div>
+            <div>
+              <p class="font-bold text-gray-900"><%= user.name %></p>
+              <p class="text-sm text-gray-500"><%= user.email_address %></p>
+            </div>
+          </div>
+          <div>
+            <%= render 'users/follow_form', user: user if authenticated? %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="bg-gray-50 rounded-xl p-12 text-center border-2 border-dashed border-gray-200">
+      <p class="text-gray-400">リストが空です。</p>
+    </div>
+  <% end %>
+</div>

@@ -22,16 +22,28 @@ class UsersController < ApplicationController
   def update_password
     # 현재 비밀번호 확인 필수
     unless @user.authenticate(params[:user][:current_password])
-      @user.errors.add(:current_password, "is invalid")
+      @user.errors.add(:current_password, :invalid)
       render :edit_password, status: :unprocessable_entity
       return
     end
 
     if @user.update(password_params)
-      redirect_to profile_path, notice: "パスワードが正常に更新されました。"
+      redirect_to profile_path, notice: "パスワード가 정상적으로 업데이트되었습니다."
     else
       render :edit_password, status: :unprocessable_entity
     end
+  end
+
+  def following
+    @title = "フォロー中"
+    @users = @user.following
+    render "show_follow"
+  end
+
+  def followers
+    @title = "フォロワー"
+    @users = @user.followers
+    render "show_follow"
   end
 
   def destroy
